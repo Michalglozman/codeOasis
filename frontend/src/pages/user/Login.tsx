@@ -11,7 +11,6 @@ const Login: React.FC = () => {
   const { login, state, clearError } = useAuth();
   const navigate = useNavigate();
   
-  // Redirect if user is already logged in
   useEffect(() => {
     if (state.isAuthenticated) {
       if (state.isAdmin) {
@@ -29,7 +28,7 @@ const Login: React.FC = () => {
     try {
       await login({ email, password, role });
       
-      if (!state.error) {
+      if (!state.error && state.isAuthenticated) {
         if (role === 'admin') {
           navigate('/admin/dashboard');
         } else if (role === 'user') {
