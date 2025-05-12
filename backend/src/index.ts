@@ -41,6 +41,13 @@ app.get('/', (req: Request, res: Response) => {
   res.json({ message: 'Welcome to the API' });
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-}); 
+// Only start the server if not running on Vercel
+if (process.env.VERCEL_REGION === undefined) {
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
+}
+
+// Export the Express app
+export default app;
+module.exports = app; 
