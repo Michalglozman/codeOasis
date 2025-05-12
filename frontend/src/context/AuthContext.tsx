@@ -125,9 +125,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         payload: { user, token },
       });
     } catch (error) {
+      let errorMessage = 'Login failed. Please try again later.';
+      
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          if (error.response.status === 401) {
+            errorMessage = 'Invalid email or password. Please try again.';
+          } else if (error.response.data && error.response.data.message) {
+            errorMessage = error.response.data.message;
+          }
+        } else if (error.request) {
+          errorMessage = 'No response from server. Please check your connection.';
+        }
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      
       dispatch({
         type: 'LOGIN_FAILURE',
-        payload: error instanceof Error ? error.message : 'Login failed',
+        payload: errorMessage,
       });
     }
   };

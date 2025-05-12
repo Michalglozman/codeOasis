@@ -18,10 +18,12 @@ const Login: React.FC = () => {
     try {
       await login({ email, password, role });
       
-      if (role === 'admin') {
-        navigate('/admin/dashboard');
-      } else {
-        navigate('/');
+      if (!state.error) {
+        if (role === 'admin') {
+          navigate('/admin/dashboard');
+        } else {
+          navigate('/');
+        }
       }
     } catch (error) {
       console.error('Login error:', error);
@@ -108,7 +110,11 @@ const Login: React.FC = () => {
             </div>
 
             {state.error && (
-              <div className="text-sm text-red-600">{state.error}</div>
+              <div className="p-3 border border-red-300 rounded-md bg-red-50 text-red-700">
+                {state.error === 'Request failed with status code 401' 
+                  ? 'Invalid email or password. Please try again.' 
+                  : state.error}
+              </div>
             )}
 
             <div>
