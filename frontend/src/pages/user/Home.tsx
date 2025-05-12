@@ -81,7 +81,6 @@ const Home: React.FC = () => {
         setBooks(data);
         setError(null);
       } catch (err) {
-        setError('Failed to load books. Please try again later.');
         console.error('Error fetching books:', err);
       } finally {
         setLoading(false);

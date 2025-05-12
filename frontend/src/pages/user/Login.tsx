@@ -19,10 +19,10 @@ const Login: React.FC = () => {
       await login({ email, password, role });
       
       if (!state.error) {
-        if (role === 'admin') {
-          navigate('/admin/dashboard');
-        } else {
-          navigate('/');
+      if (role === 'admin') {
+        navigate('/admin/dashboard');
+      } else {
+        navigate('/');
         }
       }
     } catch (error) {
