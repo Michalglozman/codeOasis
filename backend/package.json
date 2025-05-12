@@ -10,8 +10,7 @@
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
     "build": "tsc",
-    "watch": "tsc -w",
-    "vercel-build": "tsc"
+    "watch": "tsc -w"
   },
   "keywords": [],
   "author": "",
