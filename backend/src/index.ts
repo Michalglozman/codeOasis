@@ -41,12 +41,8 @@ app.get('/', (req: Request, res: Response) => {
   res.json({ message: 'Welcome to the API' });
 });
 
-// Start the server in development, but not when deployed to Vercel
-if (process.env.VERCEL !== '1') {
-  app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-  });
-}
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
 
-// Export the Express app for Vercel
 export default app; 
