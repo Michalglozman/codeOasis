@@ -11,11 +11,16 @@ const Login: React.FC = () => {
   const { login, state, clearError } = useAuth();
   const navigate = useNavigate();
   
+  // Redirect if user is already logged in
   useEffect(() => {
-    setEmail('');
-    setPassword('');
-    clearError();
-  }, [clearError]);
+    if (state.isAuthenticated) {
+      if (state.isAdmin) {
+        navigate('/admin/dashboard');
+      } else {
+        navigate('/');
+      }
+    }
+  }, [state.isAuthenticated, state.isAdmin, navigate]);
   
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -25,10 +30,10 @@ const Login: React.FC = () => {
       await login({ email, password, role });
       
       if (!state.error) {
-      if (role === 'admin') {
-        navigate('/admin/dashboard');
-      } else {
-        navigate('/');
+        if (role === 'admin') {
+          navigate('/admin/dashboard');
+        } else if (role === 'user') {
+          navigate('/');
         }
       }
     } catch (error) {
