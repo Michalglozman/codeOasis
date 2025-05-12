@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
@@ -10,6 +10,12 @@ const Login: React.FC = () => {
   
   const { login, state, clearError } = useAuth();
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    setEmail('');
+    setPassword('');
+    clearError();
+  }, [clearError]);
   
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
